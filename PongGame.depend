@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1592475243 source:/home/vinayak/Desktop/Projects/PongGame/main.cpp
+1592556316 source:/home/vinayak/Desktop/Projects/PongGame/main.cpp
 	<iostream>
 	"DefaultScreen.hpp"
 	"Player.hpp"
@@ -356,10 +356,10 @@
 1592131758 source:/home/vinayak/Desktop/Projects/PongGame/Player.hpp
 	<SDL.h>
 
-1592466393 /home/vinayak/Desktop/Projects/PongGame/Player.hpp
+1592545321 /home/vinayak/Desktop/Projects/PongGame/Player.hpp
 	"common.hpp"
 
-1592475270 /home/vinayak/Desktop/Projects/PongGame/common.hpp
+1592542082 /home/vinayak/Desktop/Projects/PongGame/common.hpp
 	<SDL.h>
 	<SDL_ttf.h>
 	<iostream>
@@ -372,9 +372,10 @@
 1592196488 /home/vinayak/Desktop/Projects/PongGame/Window.hpp
 	"common.hpp"
 
-1592197862 source:/home/vinayak/Desktop/Projects/PongGame/Player.cpp
+1592545311 source:/home/vinayak/Desktop/Projects/PongGame/Player.cpp
+	"Player.hpp"
 
-1592466360 /home/vinayak/Desktop/Projects/PongGame/DefaultScreen.hpp
+1592541720 /home/vinayak/Desktop/Projects/PongGame/DefaultScreen.hpp
 	"common.hpp"
 
 1549195222 /usr/include/SDL2/SDL_ttf.h
@@ -382,13 +383,22 @@
 	"begin_code.h"
 	"close_code.h"
 
-1592467561 /home/vinayak/Desktop/Projects/PongGame/Score.hpp
+1592543288 /home/vinayak/Desktop/Projects/PongGame/Score.hpp
 	"common.hpp"
 	<sstream>
 
-1592537253 /home/vinayak/Desktop/Projects/PongGame/Ball.hpp
+1592546270 /home/vinayak/Desktop/Projects/PongGame/Ball.hpp
 	"common.hpp"
 	"Player.hpp"
 	"Score.hpp"
 	<math.h>
+
+1592553407 source:/home/vinayak/Desktop/Projects/PongGame/Ball.cpp
+	"Ball.hpp"
+
+1592541704 source:/home/vinayak/Desktop/Projects/PongGame/DefaultScreen.cpp
+	"DefaultScreen.hpp"
+
+1592556296 source:/home/vinayak/Desktop/Projects/PongGame/Score.cpp
+	"Score.hpp"
 

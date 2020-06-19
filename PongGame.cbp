@@ -41,12 +41,14 @@
 		<Linker>
 			<Add option="`sdl2-config --libs`" />
 		</Linker>
+		<Unit filename="Ball.cpp" />
 		<Unit filename="Ball.hpp" />
+		<Unit filename="DefaultScreen.cpp" />
 		<Unit filename="DefaultScreen.hpp" />
 		<Unit filename="Player.cpp" />
 		<Unit filename="Player.hpp" />
+		<Unit filename="Score.cpp" />
 		<Unit filename="Score.hpp" />
-		<Unit filename="Window.cpp" />
 		<Unit filename="common.hpp" />
 		<Unit filename="main.cpp" />
 		<Extensions>
