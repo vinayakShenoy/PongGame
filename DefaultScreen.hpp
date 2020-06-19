@@ -4,13 +4,11 @@
 #include "common.hpp"
 class DefaultScreen{
 private:
-    int resolutionH;
-    int resolutionW;
     std::string windowName;
     SDL_Window *window;
     SDL_Renderer *renderer;
 public:
-    DefaultScreen(int w, int h, const char* name);
+    DefaultScreen(const char* name);
     SDL_Window *getWindow() const;
     SDL_Renderer *getRenderer() const;
     int getResolutionH() const;
@@ -19,14 +17,12 @@ public:
     void destroy();
 };
 
-DefaultScreen::DefaultScreen(int w, int h, const char *name){
-    resolutionH = h;
-    resolutionW = w;
+DefaultScreen::DefaultScreen(const char *name){
     window = SDL_CreateWindow(name,
                               SDL_WINDOWPOS_UNDEFINED,
                               SDL_WINDOWPOS_UNDEFINED,
-                              resolutionW,
-                              resolutionH,
+                              RESOLUTION_W,
+                              RESOLUTION_H,
                               SDL_WINDOW_OPENGL);
     renderer = SDL_CreateRenderer(window,
                                   -1,
@@ -39,19 +35,12 @@ SDL_Window *DefaultScreen::getWindow() const{
 SDL_Renderer *DefaultScreen::getRenderer() const{
     return renderer;
 }
-int DefaultScreen::getResolutionH() const{
-    return resolutionH;
-}
-
-int DefaultScreen::getResolutionW() const{
-    return resolutionW;
-}
 
 void DefaultScreen::fillAndColorDefaultScreen(){
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderDrawLine(renderer, 320, 200, 300, 240);
+    SDL_RenderDrawLine(renderer, RESOLUTION_W/2, 0, RESOLUTION_W/2, RESOLUTION_H);
 }
 
 void DefaultScreen::destroy(){

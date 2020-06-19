@@ -1,28 +1,25 @@
 #include <iostream>
 #include "DefaultScreen.hpp"
 #include "Player.hpp"
+#include "Score.hpp"
+#include "Ball.hpp"
 
 int main(){
-    int RESOLUTION_H = 480;
-    int RESOLUTION_W = 640;
 
     if(SDL_Init(SDL_INIT_VIDEO)==0){
-        DefaultScreen screen(RESOLUTION_W, RESOLUTION_H, "Pong");
+        TTF_Init();
+        DefaultScreen screen("Pong");
         if(screen.getWindow()==NULL){
             std::cout << "Could not open window" << std::endl;
             return 1;
         }
-        screen.fillAndColorDefaultScreen();
         SDL_Renderer* renderer = screen.getRenderer();
-        SDL_RenderPresent(renderer);
-
-        Player player1(0, 240);
-        Player player2(625, 240);
-        player1.fillAndColorPlayer(renderer);
-        player2.fillAndColorPlayer(renderer);
-        SDL_RenderPresent(renderer);
-
-
+        Player playerLeft{0, RESOLUTION_H/2-PLAYER_HEIGHT/2};
+        Player playerRight{RESOLUTION_W-PLAYER_WIDTH, RESOLUTION_H/2-PLAYER_HEIGHT/2};
+        Score scorePlayerLeft{(int)(0.2*RESOLUTION_W)};
+        Score scorePlayerRight{(int)(0.8*RESOLUTION_W)};
+        Ball ball{renderer};
+        ball.createBallBoundary();
         bool quit = false;
         SDL_Event e;
         while(!quit){
@@ -33,22 +30,28 @@ int main(){
                 else if(e.type == SDL_KEYDOWN){
                     switch(e.key.keysym.sym){
                         case SDLK_UP:
-                            std::cout << "Moving up" << std::endl;
-                            player1.moveUp();
-                            player2.moveUp();
+                            playerRight.moveUp();
+                            break;
+                        case SDLK_w:
+                            playerLeft.moveUp();
                             break;
                         case SDLK_DOWN:
-                            std::cout << "Moving down" << std::endl;
-                            player1.moveDown();
-                            player2.moveDown();
+                            playerRight.moveDown();
+                            break;
+                        case SDLK_s:
+                            playerLeft.moveDown();
                             break;
                     }
                 }
-                //reset original screen
-                screen.fillAndColorDefaultScreen();
-                player1.fillAndColorPlayer(renderer);
-                player2.fillAndColorPlayer(renderer);
             }
+            SDL_Delay(GAME_DELAY);
+            screen.fillAndColorDefaultScreen();
+            playerLeft.fillAndColorPlayer(renderer);
+            playerRight.fillAndColorPlayer(renderer);
+            scorePlayerLeft.fillAndDisplayScore(renderer);
+            scorePlayerRight.fillAndDisplayScore(renderer);
+            ball.moveBall(playerLeft, playerRight, scorePlayerLeft, scorePlayerRight);
+            ball.renderBall();
             SDL_RenderPresent(renderer);
         }
         screen.destroy();

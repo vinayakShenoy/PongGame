@@ -6,18 +6,16 @@
 class Player{
 private:
     SDL_Rect rect;
-    int rect_h;
-    int rect_w;
 public:
     Player(int x, int y);
     void fillAndColorPlayer(SDL_Renderer *renderer);
     void moveUp();
     void moveDown();
+    int getPositionY() const;
 };
-
 Player::Player(int x, int y){
-    rect.h = 50;
-    rect.w = 15;
+    rect.h = PLAYER_HEIGHT;
+    rect.w = PLAYER_WIDTH;
     rect.x = x;
     rect.y = y;
 }
@@ -28,20 +26,24 @@ void Player::fillAndColorPlayer(SDL_Renderer *renderer){
 }
 
 void Player::moveUp(){
-    if((rect.y-10)<=0){
+    if((rect.y - PLAYER_MOVE_DELTA)<=0){
         rect.y = 0;
     }
     else{
-        rect.y -= 10;
+        rect.y -= PLAYER_MOVE_DELTA;
     }
 }
 
 void Player::moveDown(){
-    if((rect.y+rect.h+10)>=480){
-        rect.y = 480-rect.h;
+    if((rect.y + rect.h + PLAYER_MOVE_DELTA) >= RESOLUTION_H){
+        rect.y = RESOLUTION_H - rect.h;
     }
     else{
-        rect.y += 10;
+        rect.y += PLAYER_MOVE_DELTA;
     }
+}
+
+int Player::getPositionY() const{
+    return rect.y;
 }
 #endif // PLAYER_HPP_INCLUDED
