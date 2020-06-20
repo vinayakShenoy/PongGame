@@ -17,6 +17,4 @@ public:
     void destroy();
 };
 
-
-
 #endif // WINDOW_HPP_INCLUDED

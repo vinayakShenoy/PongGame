@@ -16,6 +16,7 @@ private:
     double yIntercept;
     bool positiveDirection;
     bool ballReachedScreenEnd;
+    bool isReflecting;
     std::vector<SDL_Point> points;
     std::vector<SDL_Point> outerLayer;
     void addToPointArray(int x, int y);
@@ -29,9 +30,5 @@ public:
     void moveBall(const Player &playerLeft, const Player &playerRight, Score &left, Score &right);
     bool atScreenEnd() const;
 };
-
-
-
-
 
 #endif // BALL_HPP_INCLUDED

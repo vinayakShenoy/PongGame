@@ -18,7 +18,6 @@ int main(){
         Score scorePlayerRight{(int)(0.8*RESOLUTION_W)};
         bool windowQuit = false;
         while(scorePlayerLeft.getScore()<10 && scorePlayerRight.getScore()<10 && !windowQuit){
-            std::cout << "Entered do" << std::endl;
             Player playerLeft{0, RESOLUTION_H/2-PLAYER_HEIGHT/2};
             Player playerRight{RESOLUTION_W-PLAYER_WIDTH, RESOLUTION_H/2-PLAYER_HEIGHT/2};
             Ball ball{renderer};

@@ -19,6 +19,4 @@ public:
     int getScore();
 };
 
-
-
 #endif // SCORE_HPP_INCLUDED

@@ -10,6 +10,7 @@ Ball::Ball(SDL_Renderer *renderer){
     yIntercept = RESOLUTION_H/2;
     positiveDirection = false;
     ballReachedScreenEnd = false;
+    isReflecting = false;
 }
 
 bool Ball::atScreenEnd() const{
@@ -66,9 +67,10 @@ void Ball::renderBall(){
 //(x1,y1): center of ball when ball touches upper/lower Y boundaries
 //slope of reflected line(slope theta) is 180-theta
 void Ball::reflectLine(int y1){
+    std::cout << "1. Before reflection details: " <<  y1 << " " << lineInclination << " " << yIntercept << std::endl;
     lineInclination = 180 - lineInclination;
-    yIntercept = y1 - std::tan(lineInclination)*centerX;
-    //std::cout << lineInclination << std::endl;
+    yIntercept = y1 - std::tan((PI/180)*lineInclination)*centerX;
+    std::cout << "2. After reflection details: " <<  y1 << " " << lineInclination << " " << yIntercept << std::endl;
 }
 
 //Deflection when ball touches player
@@ -76,18 +78,24 @@ void Ball::reflectLine(int y1){
 void Ball::deflectionLine(const Player &pl){
     int playerMidY = pl.getPositionY() + PLAYER_HEIGHT/2;
     int newAngle = BALL_ON_PLAYER_DEFLECTION_UNIT*(centerY - playerMidY);
+    if(positiveDirection)
+        newAngle = -1*newAngle;
     lineInclination = (180 - newAngle)%180;
-    yIntercept = centerY - std::tan(lineInclination)*centerX;
-    //std::cout <<  playerMidY << " " << BALL_ON_PLAYER_DEFLECTION_UNIT << " " << centerY << " " << lineInclination << std::endl;
+    yIntercept = centerY - std::tan((PI/180)*lineInclination)*centerX;
 }
 
 //
 void Ball::moveBall(const Player &playerLeft, const Player &playerRight, Score &left, Score &right){
-    if((centerY - ballRadius) < 0){
+    if(((centerY - ballRadius) < 0) && !isReflecting){
         reflectLine(0);
+        isReflecting = true;
     }
-    else if((centerY + ballRadius) > RESOLUTION_H){
+    else if(((centerY + ballRadius) > RESOLUTION_H) && !isReflecting){
         reflectLine(centerY);
+        isReflecting = true;
+    }
+    else if(isReflecting && ((centerY - ballRadius) >= 0) && ((centerY + ballRadius) <= RESOLUTION_H)){
+        isReflecting = false;
     }
     //Ball touches left end of screen. Player Right wins
     if((centerX - ballRadius) < 0){
@@ -116,5 +124,5 @@ void Ball::moveBall(const Player &playerLeft, const Player &playerRight, Score &
         }
     }
     centerX = positiveDirection?(centerX + BALL_MOVE_DELTA):(centerX - BALL_MOVE_DELTA);
-    centerY = std::tan(lineInclination)*centerX + yIntercept;
+    centerY = std::tan((PI/180)*lineInclination)*centerX + yIntercept;
 }
